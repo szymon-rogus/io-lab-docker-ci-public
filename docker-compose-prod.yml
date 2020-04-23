@@ -1,11 +1,17 @@
-
 version: '3.0'
 services:
   web:
-    # TODO: image, ports and redis dependency
+    image: "szymon1rogus/iorepo1:latest"
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - redis
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
   redis:
-    image: redis:6.0-rc3
-    # TODO: persistence for redis. You need to persist /data directory.
+    image: redis:6.0-rc4-alpine
+    volumes: 
+      - redis-data:/data
+volumes:
+  redis-data:

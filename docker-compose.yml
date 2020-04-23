@@ -18,5 +18,5 @@ services:
     # TODO: missing persistence for redis. You need to persist /data directory.
     command: [sh, -c, "rm -f /data/dump.rdb && redis-server --save ''"]
     volumes:
-      - /data
+      - redis-data:/data
 
