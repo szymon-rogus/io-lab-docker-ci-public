@@ -1,4 +1,6 @@
 import time
+import random
+import string
 
 import redis, os
 from flask import Flask
@@ -29,4 +31,8 @@ def get_hit_count():
 @app.route('/')
 def hello():
     count = get_hit_count()
-    return 'Hello World! I have been seen {} times.\n'.format(count)
+    word = ''
+    size = random.randint(1, 10)
+    for x in range(size):
+        word = word + random.choice(string.ascii_letters)
+    return 'Random word ' + word + '! I have been seen {} times.\n'.format(count)

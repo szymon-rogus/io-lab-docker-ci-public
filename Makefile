@@ -9,6 +9,7 @@ REPO_NAME = $(shell git config --get remote.origin.url | tr ':.' '/'  | rev | cu
 SCHEMA_NAME = $(PREFIX)/$(REPO_NAME)
 SCHEMA_DESCRIPTION = My image!
 SCHEMA_URL = http://example.com
+MY_SOURCE = szymon1rogus/iorepo1
 
 # Vendor set to github user name
 SCEHMA_VENDOR = $(PREFIX)
@@ -37,10 +38,15 @@ image:
 		--build-arg SCHEMA_BUILD_DATE="$(SCHEMA_BUILD_DATE)" \
 		--build-arg SCHEMA_BUILD_VERSION="$(SCHEMA_BUILD_VERSION)" \
 		--build-arg SCHEMA_CMD="$(SCHEMA_CMD)" \
+		-t $(MY_SOURCE):latest .
+
+	docker tag $(MY_SOURCE) $(MY_SOURCE):v1.0
 	
   # TODO: last part of this command that tags just built image with a specyfic tag
 	
 push: image
+	docker push $(MY_SOURCE):latest
+	docker push $(MY_SOURCE):v1.0
 	# TODO: two commands, first pushes the latest image, second pushes the image tagged with specyfic tag
 	
 clean:
